@@ -1,0 +1,271 @@
+:root {
+    --midnight: #0a0c14;
+    --deep-navy: #121829;
+    --twilight: #1e2744;
+    --amber-glow: #e8a54b;
+    --warm-light: #f4d19b;
+    --soft-white: #f0ece4;
+    --muted-silver: #9ca3af;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    background: var(--midnight);
+    color: var(--soft-white);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Animated city lights background */
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(ellipse 80% 50% at 50% 100%, var(--twilight) 0%, transparent 60%),
+        radial-gradient(circle at 20% 80%, rgba(232, 165, 75, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(244, 209, 155, 0.05) 0%, transparent 35%),
+        radial-gradient(circle at 60% 90%, rgba(232, 165, 75, 0.06) 0%, transparent 30%);
+}
+
+/* Floating city light particles */
+.lights {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.light {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: var(--amber-glow);
+    border-radius: 50%;
+    opacity: 0;
+    animation: twinkle var(--duration) ease-in-out infinite;
+    animation-delay: var(--delay);
+    box-shadow: 0 0 6px 2px rgba(232, 165, 75, 0.3);
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 0.8; transform: scale(1); }
+}
+
+/* Main content */
+.container {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.content {
+    max-width: 900px;
+    text-align: center;
+}
+
+/* Title styling */
+.title {
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(3rem, 10vw, 6rem);
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, var(--soft-white) 0%, var(--warm-light) 50%, var(--amber-glow) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fadeSlideDown 1.2s ease-out forwards;
+    opacity: 0;
+}
+
+@keyframes fadeSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.byline {
+    font-size: 1.1rem;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted-silver);
+    margin-bottom: 4rem;
+    animation: fadeIn 1s ease-out 0.4s forwards;
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+/* Decorative line */
+.divider {
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--amber-glow), transparent);
+    margin: 0 auto 3rem;
+    animation: expandLine 1.2s ease-out 0.6s forwards;
+    transform: scaleX(0);
+}
+
+@keyframes expandLine {
+    to { transform: scaleX(1); }
+}
+
+/* Quote styling */
+.quote-container {
+    position: relative;
+    padding: 2rem 0;
+    animation: fadeSlideUp 1s ease-out 0.8s forwards;
+    opacity: 0;
+}
+
+@keyframes fadeSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.quote {
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 2;
+    color: var(--soft-white);
+    max-width: 750px;
+    margin: 0 auto;
+}
+
+.quote::before,
+.quote::after {
+    content: '"';
+    font-family: 'Libre Baskerville', serif;
+    font-size: 3rem;
+    color: var(--amber-glow);
+    opacity: 0.6;
+    line-height: 0;
+    vertical-align: middle;
+}
+
+.quote::before {
+    margin-right: 0.3rem;
+}
+
+.quote::after {
+    margin-left: 0.3rem;
+}
+
+/* Subtle horizon line at bottom */
+.horizon {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    background: linear-gradient(to top, 
+        rgba(30, 39, 68, 0.4) 0%, 
+        transparent 100%);
+    pointer-events: none;
+}
+
+.horizon::before {
+    content: '';
+    position: absolute;
+    bottom: 60px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(232, 165, 75, 0.2) 20%,
+        rgba(232, 165, 75, 0.4) 50%,
+        rgba(232, 165, 75, 0.2) 80%,
+        transparent 100%);
+}
+
+/* City silhouette hint */
+.skyline {
+    position: fixed;
+    bottom: 55px;
+    left: 0;
+    right: 0;
+    height: 80px;
+    opacity: 0.15;
+    background: 
+        linear-gradient(to bottom, transparent 0%, var(--deep-navy) 100%),
+        repeating-linear-gradient(90deg,
+            transparent 0px,
+            transparent 30px,
+            var(--twilight) 30px,
+            var(--twilight) 35px,
+            transparent 35px,
+            transparent 50px,
+            var(--twilight) 50px,
+            var(--twilight) 52px,
+            transparent 52px,
+            transparent 80px,
+            var(--twilight) 80px,
+            var(--twilight) 90px,
+            transparent 90px,
+            transparent 120px
+        );
+    pointer-events: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .content {
+        padding: 1rem;
+    }
+    
+    .quote {
+        line-height: 1.8;
+    }
+
+    .quote::before,
+    .quote::after {
+        font-size: 2rem;
+    }
+}
+
